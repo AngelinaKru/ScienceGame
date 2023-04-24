@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // public Animator treeAnimator;
-    private float speed = 10f;
+    private float speed = 13f;
     [SerializeField] Sprite[] sprites;
     int arrayInd = 0;
 
@@ -17,6 +17,16 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        if(transform.position.x < -9.5)
+        {
+            transform.position = transform.position + new Vector3(1, 0, 0);
+        }
+
+        if (transform.position.x > 9.5)
+        {
+            transform.position = transform.position + new Vector3(-1, 0, 0);
+        }
+
         transform.Translate(Vector3.right * Time.deltaTime * speed * Input.GetAxis("Horizontal"));
     }
 
@@ -26,6 +36,7 @@ public class Player : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = sprites[arrayInd];
             arrayInd += 1;
+            // How can I get a next sprite appear higher than the previous one? To get tree grow normally.
 
         }
 
