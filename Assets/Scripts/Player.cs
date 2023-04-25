@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class Player : MonoBehaviour
     private float speed = 13f;
     [SerializeField] Sprite[] sprites;
     int arrayInd = 0;
+   
+    private int minimum = 0;
+    private int current = 1;
+
+    public ProgressBar progressBar;
+    public GameObject congrats;
+
 
     void Start()
     {
@@ -28,6 +36,14 @@ public class Player : MonoBehaviour
         }
 
         transform.Translate(Vector3.right * Time.deltaTime * speed * Input.GetAxis("Horizontal"));
+        int progress = minimum + current;
+        progressBar.GetCurrentFill(progress);
+
+        if (minimum == 18)
+        {
+            congrats.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,7 +52,7 @@ public class Player : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = sprites[arrayInd];
             arrayInd += 1;
-            // How can I get a next sprite appear higher than the previous one? To get tree grow normally.
+            minimum += 1;
 
         }
 
@@ -47,7 +63,10 @@ public class Player : MonoBehaviour
                 Debug.Log("Try to collect only useful elements!");
                 }
             GetComponent<SpriteRenderer>().sprite = sprites[arrayInd-2];
-            
+            minimum -= 1;
         }
     }
+
+
+  
 }

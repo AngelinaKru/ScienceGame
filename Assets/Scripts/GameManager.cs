@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
